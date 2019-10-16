@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
     'leaflet',
     'djgeojson',
-    'mushrooms'
+    'manzanas'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mushrooms.urls'
+ROOT_URLCONF = 'manzanas.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mushrooms.wsgi.application'
+WSGI_APPLICATION = 'manzanas.wsgi.application'
 
 
 # Database
@@ -161,8 +161,8 @@ LEAFLET_CONFIG = {
     'SPATIAL_EXTENT': (-90, 10, -60, -30),
     'DEFAULT_CENTER': (-12,-77),
     'DEFAULT_ZOOM': 11,
-    'MIN_ZOOM': 3,
-    'MAX_ZOOM': 18,
+    'MIN_ZOOM': 5,
+    'MAX_ZOOM': 20,
     'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 }

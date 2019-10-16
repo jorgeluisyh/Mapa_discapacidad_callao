@@ -21,7 +21,8 @@ class MzsCallao(models.Model):
     # id = models.AutoField()
     idmz = models.CharField(max_length=15, blank=True, null=True)
     # geom = models.TextField(blank=True, null=True)  # This field type is a guess.
-    geom = models.PolygonField()  # This field type is a guess.
+    geom = models.MultiPolygonField()  # This field type is a guess.
+
 
     def __unicode__(self):
         return self.idmz
