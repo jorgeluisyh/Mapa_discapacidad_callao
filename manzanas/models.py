@@ -28,5 +28,7 @@ class MzsCallao(models.Model):
         return self.idmz
 
     class Meta:
+        ordering = ('idmz',)
         managed = False
         db_table = 'mzs_callao'
+        verbose_name_plural = 'Manzanas'
