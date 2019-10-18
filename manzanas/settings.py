@@ -10,13 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
-
 import os
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -28,8 +25,6 @@ SECRET_KEY = '_omc6hxq40u11no0uvi&g__lzj2n^4-dk#l#i+7+vgng!-bb^)'
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.16.16', 'localhost', 'jyupanqui']
-
-
 
 # Application definition
 
@@ -77,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'manzanas.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -116,7 +110,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -135,7 +128,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -149,7 +141,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -157,12 +148,20 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR
 
+mbUrl = 'https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png'
+osmurl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+
 LEAFLET_CONFIG = {
     'SPATIAL_EXTENT': (-90, 10, -60, -30),
-    'DEFAULT_CENTER': (-12,-77),
+    'DEFAULT_CENTER': (-12, -77),
     'DEFAULT_ZOOM': 11,
     'MIN_ZOOM': 5,
-    'MAX_ZOOM': 20,
-    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-
+    'MAX_ZOOM': 22,
+    'TILES': [("Map Surfer",mbUrl,{'maxZoom': 20}),("OSM",osmurl,{'maxZoom': 20})]
+    # 'TILES': [
+    #     ('SATELITE',mbUrl,{'attribution:{}'.format(mbAttr)}),
+    #     ('streets',mbUrl,{'attribution:{}'.format(mbAttr)})
+    # ]
 }
+
