@@ -150,6 +150,7 @@ MEDIA_ROOT = BASE_DIR
 
 mbUrl = 'https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png'
 osmurl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+esriMap = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
 
 
 LEAFLET_CONFIG = {
@@ -158,7 +159,7 @@ LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 11,
     'MIN_ZOOM': 5,
     'MAX_ZOOM': 22,
-    'TILES': [("Map Surfer",mbUrl,{'maxZoom': 20}),("OSM",osmurl,{'maxZoom': 20})]
+    'TILES': [("Esri Map",esriMap,{'maxZoom': 20}),("Map Surfer",mbUrl,{'maxZoom': 20}),("OSM",osmurl,{'maxZoom': 20})]
     # 'TILES': [
     #     ('SATELITE',mbUrl,{'attribution:{}'.format(mbAttr)}),
     #     ('streets',mbUrl,{'attribution:{}'.format(mbAttr)})
