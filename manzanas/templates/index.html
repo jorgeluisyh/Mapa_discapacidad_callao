@@ -5,7 +5,7 @@
     {% leaflet_js %}
     {% leaflet_css %}
     <style type="text/css">
-      .leaflet-container { height: 75%; }      
+      .leaflet-container { height: 100%; }      
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,8 @@
       html,
         body {
             height: 100%;
-            /*display: flex;*/
+            display: flex;
+            flex-direction: column;
             background-color: #657280;
 
         }
@@ -285,14 +286,18 @@
 
 
 
+
+
+
           <div id="map" class="map">
           {% leaflet_map "main" %}
           </div>
-        </div>
+
 
       <footer class="page-footer font-small">
           <div class="footer-copyright text-center">© 2019 Copyright</div>
         </footer>
+
 
 
     
