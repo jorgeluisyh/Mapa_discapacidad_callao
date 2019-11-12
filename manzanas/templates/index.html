@@ -1,11 +1,45 @@
+{% load static %}
 {% load leaflet_tags %}
 <html>
   <head>
     {% leaflet_js %}
     {% leaflet_css %}
-    <style>
-      .leaflet-container { height: 75%; }
-      /*.leyenda { width : 12em; height: 15em; background : white; line-height : 1.5em}*/
+    <style type="text/css">
+      .leaflet-container { height: 75%; }      
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles1.css' %}">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+
+    <style type="text/css">
+
+      html,
+        body {
+            height: 100%;
+            /*display: flex;*/
+            background-color: #657280;
+
+        }
+
+      .flex-fill {
+            flex: 1 1 auto;
+        }
+ 
+      #logoInei{
+      width: auto;
+      height:60px;
+      vertical-align: text-top;}
+
+
+      h2 {
+              font-family: bookman;
+              }
+    
+
       .leyenda { 
 
                 padding: 6px 8px;
@@ -41,9 +75,29 @@
         line-height:10px;
       }
 
+      .info{
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+
+      }
+
+      .info h4{
+      margin: 0 0 5px;
+      color: #777;
+      }
+
       
 
     </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+ 
 
     <script type="text/javascript">
 
@@ -125,7 +179,26 @@
 
       window.addEventListener("map:init", function (event) {
         var map = event.detail.map;
+        
+
+         // works
+
+         var info = L.control({
+            position: 'topleft'
+        });
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;};
+        info.update = function (props) {
+            this._div.innerHTML = '<h3> Information site</h3>' + (props ?
+                '<b>' + props.commune + '</b><br>  Ref : ' + props.ref + '<br /> Profondeur: ' + props.profondeur + ' cm | Horizons : ' + props.horizon + '' : 'Selectionner un point');
+        };
         // var controlLayer =map.layerscontrol;
+        info.addTo(map);
+
+
         var controlLayer =L.control.layers(null, null, {collapsed:false}).addTo(map);
         controlLayer.setPosition('bottomright')
         // Download GeoJSON data with Ajax
@@ -140,24 +213,32 @@
               onEachFeature: mostrar
                             }).addTo(map);
 
-          controlLayer.addOverlay(discapTotal,'Discapacidad Total');
+          controlLayer.addBaseLayer(discapTotal,'Discapacidad Total');
        
           var discapHombres = L.geoJson(data, {
               style: ShapeStyleHom,
               onEachFeature: mostrar
                             });
 
-          controlLayer.addOverlay(discapHombres,'Discapacidad Hombres');
+          controlLayer.addBaseLayer(discapHombres,'Discapacidad Hombres');
        
           var discapMujeres = L.geoJson(data, {
               style: ShapeStyleMuj,
               onEachFeature: mostrar
                             });
 
-          controlLayer.addOverlay(discapMujeres,'Discapacidad Mujeres');
+          var overlayMaps = {
+                              "Discapacidad Total": discapTotal,
+                              "Discapacidad Hombres": discapHombres,
+                              "Discapacidad Mujeres": discapMujeres
+            };
+
+
+          // addOverlay   
+          controlLayer.addBaseLayer(discapMujeres,'Discapacidad Mujeres');
           });
       
-          
+
           var legend = L.control({position: 'bottomleft'});
           legend.onAdd = function(map){
             var el_label = L.DomUtil.create('div','leyenda');
@@ -185,7 +266,35 @@
     </script>
   </head>
   <body>
-    <h1>Región Callao: Población censada con alguna discapacidad, 2017</h1>
-    {% leaflet_map "main" %}
+    <div id="header">
+      <nav class="navbar" style="background-color: #1c5ea5!important">
+        <a class="navbar-brand" href="#">
+            <img id="logoInei" src="http://ods.inei.gob.pe/ods/images/logos/logo_inei.png">
+        </a>
+        <h2 class="animated bounce infinite" style="text-align: center; width: 75%;color:white;" itemprop="headline"><a rel="bookmark">Región Callao: Población censada con alguna discapacidad, 2017.</a></h2>
+
+        <div class="navbar-toggler">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+      </nav>
+
+    </div>
+
+
+
+          <div id="map" class="map">
+          {% leaflet_map "main" %}
+          </div>
+        </div>
+
+      <footer class="page-footer font-small">
+          <div class="footer-copyright text-center">© 2019 Copyright</div>
+        </footer>
+
+
+    
   </body>
 </html>
