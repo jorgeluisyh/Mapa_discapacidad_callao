@@ -25,6 +25,9 @@ class MzsCallao(models.Model):
     discapac = models.IntegerField(blank=True, null=True)
     dishom = models.IntegerField(blank=True, null=True)
     dismuj = models.IntegerField(blank=True, null=True)
+    UBIGEO = models.CharField(max_length=6, blank=True, null=True)
+    DISTRITO = models.CharField(max_length=60, blank=True, null=True)
+
 
 
     def __unicode__(self):
