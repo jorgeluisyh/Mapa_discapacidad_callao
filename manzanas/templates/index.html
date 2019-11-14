@@ -7,6 +7,8 @@
     <style type="text/css">
       .leaflet-container { height: 100%; }      
     </style>
+    <title>Mapa Discapacidad</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,92 +17,15 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 
-    <style type="text/css">
-
-      html,
-        body {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            background-color: #657280;
-
-        }
-
-      .flex-fill {
-            flex: 1 1 auto;
-        }
- 
-      #logoInei{
-      width: auto;
-      height:60px;
-      vertical-align: text-top;}
-
-
-      h2 {
-              font-family: bookman;
-              }
-    
-
-      .leyenda { 
-
-                padding: 6px 8px;
-                font: 14px Arial, Helvetica, sans-serif;
-                background: rgba(255, 255, 255, 0.8);
-                /*background: rgba(255, 255, 255, 0.8);
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
-
-                border-radius: 5px;
-                line-height: 24px;
-                color: #555;
-                bottom: 40px;
-
-              }
-      .leyenda span {
-                position: relative;
-                bottom: 3px;
-              }
-
-      /*.leyenda z { width : 3em; float : left }*/
-
-      .leyenda z {
-          width: 3em;
-          height: 18px;
-          float: left;
-          margin: 0 8px 0 0;
-          opacity: 0.7;
-          }
-
-      .fuente {
-        font-family: verdana;
-        font-size: 50%;
-        line-height:10px;
-      }
-
-      .info{
-        padding: 6px 8px;
-        font: 14px/16px Arial, Helvetica, sans-serif;
-        background: white;
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-
-      }
-
-      .info h4{
-      margin: 0 0 5px;
-      color: #777;
-      }
-
-      
-
-    </style>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 
  
 
     <script type="text/javascript">
+
+      let checkboxStates
+
 
       function querycolor(field){
         if (field==0){
@@ -193,8 +118,15 @@
             this.update();
             return this._div;};
         info.update = function (props) {
-            this._div.innerHTML = '<h3> Information site</h3>' + (props ?
-                '<b>' + props.commune + '</b><br>  Ref : ' + props.ref + '<br /> Profondeur: ' + props.profondeur + ' cm | Horizons : ' + props.horizon + '' : 'Selectionner un point');
+            // this._div.innerHTML = '<h3> Information site</h3>' + (props ?
+            //     '<b>' + props.commune + '</b><br>  Ref : ' + props.ref + '<br /> Profondeur: ' + props.profondeur + ' cm | Horizons : ' + props.horizon + '' : 'Selectionner un point');
+            this._div.innerHTML = '<div id = "filtro" class="filtros"><h3 class="texto">Filtro por distrito:</h3></div>'+'</br>'+
+                                  '<div id = "distritos" class="filtros">'+
+                                  '<input type="checkbox" name="distrito" class="fdistrito" value="'+'070101'+'">'+'CALLAO'+'</br>'+
+                                  '<input type="checkbox" name="distrito" class="fdistrito" value="'+'070102'+'">'+'BELLAVISTA'+'</br>'+
+                                  '<input type="checkbox" name="distrito" class="fdistrito" value="'+'070103'+'">'+'CARMEN LR'+'</br>'+
+                                  '</div>';
+            
         };
         // var controlLayer =map.layerscontrol;
         info.addTo(map);
@@ -207,13 +139,48 @@
           .then(function(resp) {
             return resp.json();
           })
-          .then(function(data) {          
+          .then(function(data) {  
 
-          var discapTotal = L.geoJson(data, {
+
+
+          var discapTotal = L.geoJson(null, {
               style: ShapeStyle,
-              onEachFeature: mostrar
-                            }).addTo(map);
+              onEachFeature: mostrar,
+              filter: (feature) => {
+                  const isDistChecked = checkboxStates.fdistrito.includes(feature.properties.UBIGEO)
+                  return isDistChecked && true
+                          }
 
+                            }).addTo(map);
+          function updateCheckboxStates() {
+                  checkboxStates = {
+                    fdistrito: []
+                  }
+                  
+                  for (let input of document.querySelectorAll('input')) {
+                    if(input.checked) {
+                      switch (input.className) {
+                        case 'fdistrito': checkboxStates.fdistrito.push(input.value); break
+                      }
+                    }
+                  }
+                }
+
+
+            for (let input of document.querySelectorAll('input')) {
+              //Listen to 'change' event of all inputs
+              input.onchange = (e) => {
+                discapTotal.clearLayers()
+                updateCheckboxStates()
+                discapTotal.addData(data)   
+              }
+            }
+
+
+                /****** INIT ******/
+                updateCheckboxStates()
+                discapTotal.addData(data)
+                // FDSFSDFSDFSDF
           controlLayer.addBaseLayer(discapTotal,'Discapacidad Total');
        
           var discapHombres = L.geoJson(data, {
@@ -295,7 +262,7 @@
 
 
       <footer class="page-footer font-small">
-          <div class="footer-copyright text-center">© 2019 Copyright</div>
+          <div class="footer-copyright text-center"><span class="texto">© 2019 Copyright</span></div>
         </footer>
 
 

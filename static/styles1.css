@@ -1,12 +1,82 @@
-/*body{
-    display: flex;
-    padding: 0;
-    margin: 0;
+html,
+body {
     height: 100%;
-    width: 100%;
-    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    background-color: #657280;
+
 }
-*/
+
+.flex-fill {
+    flex: 1 1 auto;
+}
+
+#logoInei{
+  width: auto;
+  height:60px;
+  vertical-align: text-top;
+}
+
+
+h2 {
+      font-family: bookman;
+      }
+
+
+.leyenda { 
+
+        padding: 6px 8px;
+        font: 14px Arial, Helvetica, sans-serif;
+        background: rgba(255, 255, 255, 0.8);
+        /*background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
+
+        border-radius: 5px;
+        line-height: 24px;
+        color: #555;
+        bottom: 40px;
+
+      }
+.leyenda span {
+        position: relative;
+        bottom: 3px;
+      }
+
+
+.leyenda z {
+  width: 3em;
+  height: 18px;
+  float: left;
+  margin: 0 8px 0 0;
+  opacity: 0.7;
+  }
+
+.fuente {
+font-family: verdana;
+font-size: 50%;
+line-height:10px;
+}
+
+.info{
+
+font: 14px/16px Arial, Helvetica, sans-serif;
+background: white;
+background: rgba(255, 255, 255, 0.8);
+box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+border-radius: 5px;
+
+}
+
+.info h3{
+font: 16px/20px Arial, Helvetica, sans-serif;
+margin: 0 0 0px;
+
+width : 100%;
+border-radius: 5px;
+
+color: white;
+white-space: nowrap ;
+}
 
 
 .container-fluid{
@@ -38,4 +108,20 @@
   height: 30px;
 }
 
+.filtros{
+  padding:  8px 10px;
+  border-top-left-radius:  5px;
+  border-top-right-radius:  5px;
+  /*border-radius: 5px;*/
 
+}
+#filtro {
+  background-color: #1c5ea5!important;
+
+}
+
+.texto{
+  /*text-align: center;*/
+  width: 75%;
+  color:white;
+}
