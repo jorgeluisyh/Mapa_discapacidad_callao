@@ -19,219 +19,77 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+    <script src= "https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+                  <script type="text/javascript" >
+                  var expanded = false;
+
+              function showCheckboxes() {
+                var checkboxes = document.getElementById("checkboxes");
+                if (!expanded) {
+                  checkboxes.style.display = "block";
+                  expanded = true;
+                } else {
+                  checkboxes.style.display = "none";
+                  expanded = false;
+                }
+              }
+
+
+                </script>
+
+                <style type="text/css">
+                  .multiselect {
+                width: 200px;
+              }
+
+              .selectBox {
+                position: relative;
+              }
+
+              .selectBox select {
+                width: 100%;
+                font-weight: bold;
+              }
+
+              .overSelect {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+              }
+
+              #checkboxes {
+                display: none;
+                border: 1px #dadada solid;
+              }
+
+              /*#checkboxes input {
+                display: block;
+              }*/
+
+              #checkboxes input:hover {
+                background-color: #1e90ff;
+              }
+
+
+                </style>
+                <script type="text/javascript">
+            $(window).on("load",function(){
+            $('.todos').click(function() { $(this.form.elements).filter(':checkbox').prop('checked', this.checked);
+              });
+              });
+        </script>
+
+    <script type="text/javascript">var dataurl = '{% url "data" %}';</script>
+
+        
+    <script type="text/javascript" src="{% static 'mapContainer.js' %}">
+     </script>
 
  
 
-    <script type="text/javascript">
-
-      let checkboxStates
-
-
-      function querycolor(field){
-        if (field==0){
-          return 'gray'
-        }else if(field < 30){
-          return 'rgb(255,255,0)';
-        }else if(field < 60){
-          return 'rgb(255,189,0)';
-        }else if(field < 100){
-          return 'rgb(255,136,0)';
-        }else if(field < 150){
-          return 'rgb(179,93,5)'
-        }else if(field <526){
-          return 'rgb(177,0,0)';
-        }
-      }
-
-      function ShapeStyle(feature){
-
-        return{
-          fillColor :querycolor(feature.properties.discapac),
-          weight: 0,
-          opacity: 1,
-          color : 'white',
-          dashArray: 3,
-          fillOpacity: 0.6,         
-        }}
-
-
-      function mostrar(feature, layer) {
-                var props = feature.properties;
-                var content = `<p> Discapacidad Total = ${props.discapac}</br>
-                              hombres = ${props.dishom}</br>
-                              mujeres = ${props.dismuj}</p>`
-                <!--var content = `<img width="300" src="${props.picture_url}"/><h3>${props.title}</h3><p>${props.description}</p>`;-->
-                layer.bindPopup(content);
-            }
-
-
-      function ShapeStyle(feature){
-
-        return{
-          fillColor :querycolor(feature.properties.discapac),
-          weight: 0,
-          opacity: 1,
-          color : 'white',
-          dashArray: 3,
-          fillOpacity: 0.8,         
-        }}
-      function ShapeStyleHom(feature){
-
-              return{
-                fillColor :querycolor(feature.properties.dishom),
-                weight: 0,
-                opacity: 1,
-                color : 'white',
-                dashArray: 3,
-                fillOpacity: 0.8,         
-              }}
-      function ShapeStyleMuj(feature){
-
-              return{
-                fillColor :querycolor(feature.properties.dismuj),
-                weight: 0,
-                opacity: 1,
-                color : 'white',
-                dashArray: 3,
-                fillOpacity: 0.8,         
-              }}
-
-
-      
-      var dataurl = '{% url "data" %}';
-
-      
-
-
-      window.addEventListener("map:init", function (event) {
-        var map = event.detail.map;
-        
-
-         // works
-
-         var info = L.control({
-            position: 'topleft'
-        });
-
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;};
-        info.update = function (props) {
-            // this._div.innerHTML = '<h3> Information site</h3>' + (props ?
-            //     '<b>' + props.commune + '</b><br>  Ref : ' + props.ref + '<br /> Profondeur: ' + props.profondeur + ' cm | Horizons : ' + props.horizon + '' : 'Selectionner un point');
-            this._div.innerHTML = '<div id = "filtro" class="filtros"><h3 class="texto">Filtro por distrito:</h3></div>'+'</br>'+
-                                  '<div id = "distritos" class="filtros">'+
-                                  '<input type="checkbox" name="distrito" class="fdistrito" value="'+'070101'+'">'+'CALLAO'+'</br>'+
-                                  '<input type="checkbox" name="distrito" class="fdistrito" value="'+'070102'+'">'+'BELLAVISTA'+'</br>'+
-                                  '<input type="checkbox" name="distrito" class="fdistrito" value="'+'070103'+'">'+'CARMEN LR'+'</br>'+
-                                  '</div>';
-            
-        };
-        // var controlLayer =map.layerscontrol;
-        info.addTo(map);
-
-
-        var controlLayer =L.control.layers(null, null, {collapsed:false}).addTo(map);
-        controlLayer.setPosition('bottomright')
-        // Download GeoJSON data with Ajax
-        fetch(dataurl)
-          .then(function(resp) {
-            return resp.json();
-          })
-          .then(function(data) {  
-
-
-
-          var discapTotal = L.geoJson(null, {
-              style: ShapeStyle,
-              onEachFeature: mostrar,
-              filter: (feature) => {
-                  const isDistChecked = checkboxStates.fdistrito.includes(feature.properties.UBIGEO)
-                  return isDistChecked && true
-                          }
-
-                            }).addTo(map);
-          function updateCheckboxStates() {
-                  checkboxStates = {
-                    fdistrito: []
-                  }
-                  
-                  for (let input of document.querySelectorAll('input')) {
-                    if(input.checked) {
-                      switch (input.className) {
-                        case 'fdistrito': checkboxStates.fdistrito.push(input.value); break
-                      }
-                    }
-                  }
-                }
-
-
-            for (let input of document.querySelectorAll('input')) {
-              //Listen to 'change' event of all inputs
-              input.onchange = (e) => {
-                discapTotal.clearLayers()
-                updateCheckboxStates()
-                discapTotal.addData(data)   
-              }
-            }
-
-
-                /****** INIT ******/
-                updateCheckboxStates()
-                discapTotal.addData(data)
-                // FDSFSDFSDFSDF
-          controlLayer.addBaseLayer(discapTotal,'Discapacidad Total');
-       
-          var discapHombres = L.geoJson(data, {
-              style: ShapeStyleHom,
-              onEachFeature: mostrar
-                            });
-
-          controlLayer.addBaseLayer(discapHombres,'Discapacidad Hombres');
-       
-          var discapMujeres = L.geoJson(data, {
-              style: ShapeStyleMuj,
-              onEachFeature: mostrar
-                            });
-
-          var overlayMaps = {
-                              "Discapacidad Total": discapTotal,
-                              "Discapacidad Hombres": discapHombres,
-                              "Discapacidad Mujeres": discapMujeres
-            };
-
-
-          // addOverlay   
-          controlLayer.addBaseLayer(discapMujeres,'Discapacidad Mujeres');
-          });
-      
-
-          var legend = L.control({position: 'bottomleft'});
-          legend.onAdd = function(map){
-            var el_label = L.DomUtil.create('div','leyenda');
-            var labels = [
-              "151&nbsp&nbsp;-&nbsp&nbsp&nbsp&nbsp;526",
-              "101&nbsp&nbsp;-&nbsp&nbsp&nbsp&nbsp;150",
-              "&nbsp&nbsp61&nbsp&nbsp;-&nbsp&nbsp&nbsp&nbsp;100",
-              "&nbsp&nbsp31&nbsp&nbsp;-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;60",
-              "&nbsp&nbsp&nbsp&nbsp1&nbsp&nbsp;-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;30",
-              "&nbsp&nbsp&nbsp&nbsp;0"
-            ];
-            var grades = [525,149,99,59,29,0];
-            el_label.innerHTML = '<div><b><CENTER>Leyenda</CENTER></b></div>';
-            el_label.innerHTML += '<div><b>Población</b></div>';
-            for(var i=0; i< grades.length; i++){
-              el_label.innerHTML += '<z style="background:'  
-              + querycolor(grades[i])+'">&nbsp;&nbsp;</z>&nbsp;&nbsp;'
-              + labels[i] + '<br/>';
-            }
-            el_label.innerHTML += '<div class = "fuente"><p>Fuente: Instituto Nacional de Estadística e Informática</br> - Censos Nacionales de Población y Vivienda 2017</p></div>';
-            return el_label;
-          }
-          legend.addTo(map);
-      });
-    </script>
   </head>
   <body>
     <div id="header">

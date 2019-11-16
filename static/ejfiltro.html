@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <script src= "https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+	<script type="text/javascript" >
+		var expanded = false;
+
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+
+
+	</script>
+	<style type="text/css">
+		.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+/*#checkboxes input {
+  display: block;
+}*/
+
+#checkboxes input:hover {
+  background-color: #1e90ff;
+}
+
+
+	</style>
+	
+	<script type="text/javascript">
+	$(window).on("load",function(){
+	$('.todos').click(function() { $(this.form.elements).filter(':checkbox').prop('checked', this.checked);
+		});
+		});
+</script>
+</head>
+<body>
+<div id="mapita">	
+
+<!-- 	<form>
+  <div class="multiselect">
+    <div class="selectBox" onclick="showCheckboxes()">
+      <select>
+        <option>Seleccione un distrito</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+    <div id="checkboxes">
+        <input type="checkbox" id="cero" class="todos"/>Todos los checkbox</br>
+        <input type="checkbox" id="one" />First checkbox</br>
+        <input type="checkbox" id="two" />Second checkbox</br>
+        <input type="checkbox" id="three" />Third checkbox</br>
+    </div>
+  </div>
+</form> -->
+</div>
+<script type="text/javascript">
+
+
+		var inner = `
+                      <div id = "filtro" class="filtros"><h3 class="texto">Filtro por distrito:</h3></div>
+                      <form>
+                       <div class="multiselect">
+                       <div class="selectBox" onclick="showCheckboxes()">
+                        <select>
+                          <option>Seleccione un distrito</option>
+                        </select>
+                        <div class="overSelect"></div>
+                        </div>
+                        <div id="checkboxes">
+                        <input type="checkbox" id="cero" class="todos"/>Todos los checkbox</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070101">CALLAO    </br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070102">BELLAVISTA</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070103">CARMEN LR </br>
+                        </div>
+                        </div>
+                        </form>
+                        `;
+		var mapita=document.getElementById("mapita")
+// 		mapita.innerHTML+= `<form>
+//   <div class="multiselect">
+//     <div class="selectBox" onclick="showCheckboxes()">
+//       <select>
+//         <option>Seleccione un distrito</option>
+//       </select>
+//       <div class="overSelect"></div>
+//     </div>
+//     <div id="checkboxes">
+//         <input type="checkbox" id="cero" class="todos"/>Todos los checkbox</br>
+//         <input type="checkbox" id="one" />First checkbox</br>
+//         <input type="checkbox" id="two" />Second checkbox</br>
+//         <input type="checkbox" id="three" />Third checkbox</br>
+//     </div>
+//   </div>
+// </form>`;
+mapita.innerHTML += inner;
+	</script>
+
+
+
+</body>
+</html>
