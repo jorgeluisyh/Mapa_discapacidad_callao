@@ -20,6 +20,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <script src= "https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+            $(window).on('pageshow',function(){
+            $('.todos').click(function() { $(this.form.elements).filter(':checkbox').prop('checked', this.checked);
+              });
+              });
+    </script>
+   
 
                   <script type="text/javascript" >
                   var expanded = false;
@@ -63,6 +70,8 @@
               #checkboxes {
                 display: none;
                 border: 1px #dadada solid;
+                height: 100px;
+                overflow:auto;
               }
 
               /*#checkboxes input {
@@ -75,12 +84,8 @@
 
 
                 </style>
-                <script type="text/javascript">
-            $(window).on("load",function(){
-            $('.todos').click(function() { $(this.form.elements).filter(':checkbox').prop('checked', this.checked);
-              });
-              });
-        </script>
+
+
 
     <script type="text/javascript">var dataurl = '{% url "data" %}';</script>
 
@@ -122,6 +127,7 @@
       <footer class="page-footer font-small">
           <div class="footer-copyright text-center"><span class="texto">© 2019 Copyright</span></div>
         </footer>
+
 
 
 
