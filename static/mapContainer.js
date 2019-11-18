@@ -90,10 +90,14 @@ function querycolor(field){
                         <div class="overSelect"></div>
                         </div>
                         <div id="checkboxes">
-                        <input type="checkbox" id="cero" class="todos"/>Todos los checkbox</br>
+                        <input type="checkbox" id="cero" class="todos"/>Todos</br>
                         <input type="checkbox" name="distrito" class="fdistrito" value="070101">CALLAO    </br>
                         <input type="checkbox" name="distrito" class="fdistrito" value="070102">BELLAVISTA</br>
                         <input type="checkbox" name="distrito" class="fdistrito" value="070103">CARMEN LR </br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070104">LA PERLA </br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070105">LA PUNTA</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070106">VENTANILLA</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070107">MI PERU</br>
                         </div>
                         </div>
                         </form>
