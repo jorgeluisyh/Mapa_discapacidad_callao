@@ -18,6 +18,11 @@ function showCheckboxes() {
   }
 }
 
+  $(window).on("load",function(){
+  $('.todos').click(function() { $(this.form.elements).filter(':checkbox').prop('checked', this.checked);
+    });
+    });
+
 
 	</script>
 	<style type="text/css">
@@ -58,12 +63,12 @@ function showCheckboxes() {
 
 	</style>
 	
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 	$(window).on("load",function(){
 	$('.todos').click(function() { $(this.form.elements).filter(':checkbox').prop('checked', this.checked);
 		});
 		});
-</script>
+</script> -->
 </head>
 <body>
 <div id="mapita">	

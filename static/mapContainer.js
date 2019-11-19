@@ -90,14 +90,14 @@ function querycolor(field){
                         <div class="overSelect"></div>
                         </div>
                         <div id="checkboxes">
-                        <input type="checkbox" id="cero" class="todos"/>Todos</br>
-                        <input type="checkbox" name="distrito" class="fdistrito" value="070101">CALLAO    </br>
-                        <input type="checkbox" name="distrito" class="fdistrito" value="070102">BELLAVISTA</br>
-                        <input type="checkbox" name="distrito" class="fdistrito" value="070103">CARMEN LR </br>
-                        <input type="checkbox" name="distrito" class="fdistrito" value="070104">LA PERLA </br>
-                        <input type="checkbox" name="distrito" class="fdistrito" value="070105">LA PUNTA</br>
-                        <input type="checkbox" name="distrito" class="fdistrito" value="070106">VENTANILLA</br>
-                        <input type="checkbox" name="distrito" class="fdistrito" value="070107">MI PERU</br>
+                        <input type="checkbox" id="todos" class="fdistrito" checked >Todos</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070101" checked >CALLAO    </br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070102" checked >BELLAVISTA</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070103" checked >CARMEN LR </br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070104" checked >LA PERLA </br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070105" checked >LA PUNTA</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070106" checked >VENTANILLA</br>
+                        <input type="checkbox" name="distrito" class="fdistrito" value="070107" checked >MI PERU</br>
                         </div>
                         </div>
                         </form>
@@ -108,6 +108,12 @@ function querycolor(field){
 
       window.addEventListener("map:init", function (event) {
         var map = event.detail.map;
+
+        new L.HistoryControl({
+            position: 'topright',
+            backText: 'Prev',
+            forwardText: 'Next'
+                }).addTo(map);
         
          var info = L.control({
             position: 'topleft'
@@ -142,7 +148,6 @@ function querycolor(field){
               onEachFeature: mostrar,
               filter: filterDistrito
                             }).addTo(map);
-
           controlLayer.addBaseLayer(discapTotal,'Discapacidad Total');
        
           var discapHombres = L.geoJson(null, {
@@ -184,7 +189,7 @@ function querycolor(field){
                 }
 
 
-            for (let input of document.querySelectorAll('input')) {
+            for (let input of document.querySelectorAll('.fdistrito')) {
               //Listen to 'change' event of all inputs
               input.onchange = (e) => {
                 discapTotal.clearLayers()
@@ -194,6 +199,7 @@ function querycolor(field){
                 discapTotal.addData(data)   
                 discapHombres.addData(data)   
                 discapMujeres.addData(data)
+                map.flyToBounds(discapTotal.getBounds());             
               }
             }
 
