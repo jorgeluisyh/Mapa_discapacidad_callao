@@ -114,6 +114,20 @@ function querycolor(field){
             backText: 'Prev',
             forwardText: 'Next'
                 }).addTo(map);
+
+        function locateBounds () {
+          var p1 = L.latLng(-11.817 , -77.187),
+              p2 = L.latLng(-12.081 , -77.063),
+              bounds = L.bounds(p1, p2);
+             // geolocate
+             // ...
+             return L.latLngBounds(p1, p2);
+             // return bounds;
+        }
+
+        new L.Control.ResetView(locateBounds).addTo(map);
+
+
         
          var info = L.control({
             position: 'topleft'

@@ -158,11 +158,12 @@ esriMap = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/M
 
 LEAFLET_CONFIG = {
     'SPATIAL_EXTENT': (-90, 10, -60, -30),
-    'DEFAULT_CENTER': (-12, -77),
-    'DEFAULT_ZOOM': 11,
+    'DEFAULT_CENTER': (-11.948, -77.125),
+    'DEFAULT_ZOOM': 12,
     'MIN_ZOOM': 5,
     'MAX_ZOOM': 22,
-    'TILES': [("Esri Map",esriMap,{'maxZoom': 20}),("Map Surfer",mbUrl,{'maxZoom': 20}),("OSM",osmurl,{'maxZoom': 20})]
+    'TILES': [("Esri Map",esriMap,{'maxZoom': 20}),("Map Surfer",mbUrl,{'maxZoom': 20}),("OSM",osmurl,{'maxZoom': 20})],
+    'RESET_VIEW': False,
     # 'TILES': [
     #     ('SATELITE',mbUrl,{'attribution:{}'.format(mbAttr)}),
     #     ('streets',mbUrl,{'attribution:{}'.format(mbAttr)})
