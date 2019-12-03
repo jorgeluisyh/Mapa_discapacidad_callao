@@ -1,4 +1,6 @@
 let checkboxStates
+var mujeres = 100;
+var hombres = 100;
 
 
 function querycolor(field){
@@ -146,6 +148,23 @@ function querycolor(field){
         info.addTo(map);
 
 
+        var dashboard = L.control({
+          position: 'topleft'
+        });
+
+        dashboard.onAdd = function(map){
+          this._div = L.DomUtil.create('div','dashboard');
+          this.update();
+          return this._div;};
+
+        dashboard.update = function (props) {
+            this._div.innerHTML = `<div id="container" style="min-width: 310px; height: 200px; max-width: 600px; margin: 0 auto"></div>`;            
+        };
+
+        dashboard.addTo(map);
+
+
+
         var controlLayer =L.control.layers(null, null, {collapsed:false}).addTo(map);
         controlLayer.setPosition('bottomright')
         // Download GeoJSON data with Ajax
@@ -178,11 +197,11 @@ function querycolor(field){
               filter: filterDistrito
                             });
 
-          var overlayMaps = {
-                              "Discapacidad Total": discapTotal,
-                              "Discapacidad Hombres": discapHombres,
-                              "Discapacidad Mujeres": discapMujeres
-            };
+          // var overlayMaps = {
+          //                     "Discapacidad Total": discapTotal,
+          //                     "Discapacidad Hombres": discapHombres,
+          //                     "Discapacidad Mujeres": discapMujeres
+          //   };
 
 
           // addOverlay   
@@ -213,7 +232,24 @@ function querycolor(field){
                 discapTotal.addData(data)   
                 discapHombres.addData(data)   
                 discapMujeres.addData(data)
-                map.flyToBounds(discapTotal.getBounds());             
+                map.flyToBounds(discapTotal.getBounds());  
+                mujeres = fxdashM(data);
+                hombres = fxdashH(data);
+                chart1 = $('#container').highcharts()
+                chart1.series[0].update({
+                  data: [
+                      ['Mujeres ♀', mujeres],
+                      ['Hombres ♂', hombres],
+                      {
+                        name: 'Other',
+                        y: 0,
+                        dataLabels: {
+                          enabled: false
+                        }
+                      }
+                    ]
+                }, false);
+                chart1.redraw();           
               }
             }
 
@@ -252,3 +288,83 @@ function querycolor(field){
 
       });
 
+
+
+$(window).on('pageshow',function(){
+  Highcharts.setOptions({
+    colors: ['#f183b4', '#0d70b1']
+  });
+
+  Highcharts.chart('container', {
+    chart: {
+      backgroundColor : null,
+      plotBackgroundColor: null,
+      plotBorderWidth: 0,
+      plotShadow: false
+    },
+    title: {
+      text: 'Discapacidad<br>por<br>género',
+      align: 'center',
+      verticalAlign: 'middle',
+      y: 50
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        dataLabels: {
+          enabled: true,
+          distance: -35,
+          style: {
+            fontWeight: 'bold',
+            fontSize : 10,
+            color: 'white'
+          }
+        },
+        startAngle: -90,
+        endAngle: 90,
+        center: ['50%', '75%'],
+        size: '170%'
+      }
+    },
+    series: [{
+      type: 'pie',
+      name: 'discapacidad',
+      innerSize: '50%',
+      data: [
+        ['Mujeres ♀', mujeres],
+        ['Hombres ♂', hombres],
+        {
+          name: 'Other',
+          y: 0,
+          dataLabels: {
+            enabled: false
+          }
+        }
+      ]
+    }]
+  });
+
+
+
+      });
+
+
+
+fxdashM = function(data){
+  // var obj = JSON.parse(data);
+  var obj = data.features;
+  var datos = Object.values(obj);
+  var datos = datos.filter(filterDistrito)
+  var sum = Object.values(datos).reduce((acc, current) => acc + current.properties.dismuj, 0);
+  return sum;
+}
+fxdashH = function(data){
+  // var obj = JSON.parse(data);
+  var obj = data.features;
+  var datos = Object.values(obj);
+  var datos = datos.filter(filterDistrito)
+  var sum = Object.values(datos).reduce((acc, current) => acc + current.properties.dishom, 0);
+  return sum;
+}
