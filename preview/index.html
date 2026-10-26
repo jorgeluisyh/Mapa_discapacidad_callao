@@ -1,0 +1,90 @@
+<!--
+  PREVIEW ONLY - not used by Django.
+  Same markup/CSS/JS as manzanas/templates/index.html, but wired to a local
+  sample data.geojson instead of the real PostGIS-backed /data.geojson view,
+  so the design can be reviewed in a browser without GDAL/PostGIS installed.
+-->
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H"
+          crossorigin="anonymous">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH"
+            crossorigin="anonymous"></script>
+    <style type="text/css">
+      .leaflet-container { height: 100%; }
+    </style>
+    <title>Mapa Discapacidad (preview)</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="stylesheet" type="text/css" href="../static/checkbox.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+          crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../static/checkbox.js"></script>
+    <script type="text/javascript">
+      var dataurl = 'data.geojson';
+      // Stub for the Leaflet.ResetView control django-leaflet normally ships
+      // via {% leaflet_js %}; mapContainer.js expects it to exist.
+      L.Control.ResetView = L.Control.extend({
+        onAdd: function () { return L.DomUtil.create('div'); }
+      });
+    </script>
+    <script type="text/javascript" src="../static/mapContainer.js"></script>
+
+    <script src="https://code.highcharts.com/13.1.1/highcharts.js"
+            integrity="sha384-FXT8Mj1JsVEsCNEB3qjrU1JPYJ94Ku7uMe0eopjumL2jEkPl1O9YeAZJn+qsOFVW"
+            crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/13.1.1/modules/exporting.js"
+            integrity="sha384-+dLPf/Z743XfoVPh1oIKoZaoVxLjiN5nkKHPA86xk8lByxHACrB+HoGgb2jst4Ac"
+            crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/13.1.1/modules/export-data.js"
+            integrity="sha384-CBAtglTcbQPbRno4obhvld3xN+vEYAodIxCgR1gHTcxG4WvbiM2aBJz5fLIbLnYZ"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/leaflet-history.css">
+    <script type="text/javascript" src="../static/leaflet-history.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <nav class="navbar">
+        <h2 class="texto-titulo" itemprop="headline">
+          Región Callao: Población censada con alguna discapacidad, 2017.
+        </h2>
+      </nav>
+    </div>
+
+    <div id="map" class="map">
+      <div id="main" class="leaflet-container" style="width: 100%; height: 100%;"></div>
+    </div>
+
+    <footer class="page-footer font-small">
+        <div class="footer-copyright text-center"><span class="texto">© 2019 Copyright</span></div>
+      </footer>
+    <script type="text/javascript">
+      // django-leaflet normally builds the map and fires "map:init" via
+      // {% leaflet_map "main" %}; replicate the minimum here for the preview.
+      var map = L.map('main', {
+        center: [-11.948, -77.125],
+        zoom: 12,
+        minZoom: 5,
+        maxZoom: 22
+      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      window.dispatchEvent(new CustomEvent('map:init', { detail: { map: map } }));
+    </script>
+  </body>
+</html>

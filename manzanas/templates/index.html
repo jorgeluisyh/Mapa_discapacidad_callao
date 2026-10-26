@@ -5,47 +5,48 @@
     {% leaflet_js %}
     {% leaflet_css %}
     <style type="text/css">
-      .leaflet-container { height: 100%; }      
+      .leaflet-container { height: 100%; }
     </style>
     <title>Mapa Discapacidad</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'checkbox.css' %}">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+          crossorigin="anonymous">
 
-    <script src= "https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs"
+            crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'checkbox.js' %}"></script>
-    <script type="text/javascript">var dataurl = '{% url "data" %}';</script>        
+    <script type="text/javascript">var dataurl = '{% url "data" %}';</script>
     <script type="text/javascript" src="{% static 'mapContainer.js' %}"></script>
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/13.1.1/highcharts.js"
+            integrity="sha384-FXT8Mj1JsVEsCNEB3qjrU1JPYJ94Ku7uMe0eopjumL2jEkPl1O9YeAZJn+qsOFVW"
+            crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/13.1.1/modules/exporting.js"
+            integrity="sha384-+dLPf/Z743XfoVPh1oIKoZaoVxLjiN5nkKHPA86xk8lByxHACrB+HoGgb2jst4Ac"
+            crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/13.1.1/modules/export-data.js"
+            integrity="sha384-CBAtglTcbQPbRno4obhvld3xN+vEYAodIxCgR1gHTcxG4WvbiM2aBJz5fLIbLnYZ"
+            crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static 'leaflet-history.css' %}">
-    <script type="text/javascript" src="{% static 'leaflet-history.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'leaflet-history.js' %}"></script>
 
   </head>
   <body>
     <div id="header">
-      <nav class="navbar" style="background-color: #1c5ea5!important">
-        <a class="navbar-brand" href="#">
-            <img id="logoInei" src="http://ods.inei.gob.pe/ods/images/logos/logo_inei.png">
-        </a>
-        <h2 class="animated bounce infinite" style="text-align: center; width: 75%;color:white;" itemprop="headline">
-          <a rel="bookmark">Región Callao: Población censada con alguna discapacidad, 2017.</a>
+      <nav class="navbar">
+        <h2 class="texto-titulo" itemprop="headline">
+          Región Callao: Población censada con alguna discapacidad, 2017.
         </h2>
-
-        <div class="navbar-toggler">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
-                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
       </nav>
     </div>
 
@@ -55,6 +56,6 @@
 
     <footer class="page-footer font-small">
         <div class="footer-copyright text-center"><span class="texto">© 2019 Copyright</span></div>
-      </footer>    
+      </footer>
   </body>
 </html>

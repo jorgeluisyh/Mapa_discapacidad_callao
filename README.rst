@@ -19,6 +19,14 @@ Install Django dependencies:
 
     pip install -r requirements.txt
 
+Configure environment variables (secret key, DEBUG flag, allowed hosts and
+database credentials are no longer hardcoded in the repo):
+
+.. code-block:: bash
+
+    cp .env.example .env
+    # then edit .env with your own values
+
 Initialize database tables:
 
 .. code-block:: bash
@@ -50,19 +58,10 @@ to make the server visible for other pc's in the same network
 
 OBS
 ===
-If you want to work with a database already created in postgis use de next command to get the models
+If you want to work with a database already created in postgis use the next command to get the models
+(note: this writes to the current directory, so run it from inside an app
+such as ``manzanas/`` rather than the project root):
 
 .. code-block:: bash
 
 	python manage.py inspectdb > models.py
-
-I got this error and found that it was caused by using psycopg2 version 2.8 (or 2.8.1) -- downgrading to 2.7.7 made it go away. This is on Windows 10 with Django 2.2.
-
-.. code-block:: bash
-
-	pip install psycopg2==2.7.7 --force-reinstall
-
-
-Edit: I see now that there's a fix in the pipeline for Django 2.2 to support psycopg2 2.8.
-
-Edit (5/1/2019): Django 2.2.1 is out today with a fix adding support for psycopg2 2.8.

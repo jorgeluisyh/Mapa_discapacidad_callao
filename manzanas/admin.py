@@ -1,8 +1,11 @@
-from leaflet.admin import LeafletGeoAdmin
 from django.contrib import admin
+from leaflet.admin import LeafletGeoAdmin
 
-from . import models as mushrooms_models
+from .models import MzsCallao
 
 
-# admin.site.register(mushrooms_models.MushroomSpot, LeafletGeoAdmin)
-admin.site.register(mushrooms_models.MzsCallao, LeafletGeoAdmin)
+@admin.register(MzsCallao)
+class MzsCallaoAdmin(LeafletGeoAdmin):
+    list_display = ('idmz', 'DISTRITO', 'discapac', 'dishom', 'dismuj')
+    list_filter = ('DISTRITO',)
+    search_fields = ('idmz', 'UBIGEO')

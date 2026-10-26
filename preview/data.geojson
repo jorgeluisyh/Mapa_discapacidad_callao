@@ -1,0 +1,40 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"discapac": 300, "dishom": 140, "dismuj": 160, "UBIGEO": "070101", "DISTRITO": "CALLAO"},
+      "geometry": {"type": "MultiPolygon", "coordinates": [[[[-77.131, -11.954], [-77.119, -11.954], [-77.119, -11.942], [-77.131, -11.942], [-77.131, -11.954]]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"discapac": 120, "dishom": 55, "dismuj": 65, "UBIGEO": "070102", "DISTRITO": "BELLAVISTA"},
+      "geometry": {"type": "MultiPolygon", "coordinates": [[[[-77.106, -11.954], [-77.094, -11.954], [-77.094, -11.942], [-77.106, -11.942], [-77.106, -11.954]]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"discapac": 80, "dishom": 38, "dismuj": 42, "UBIGEO": "070103", "DISTRITO": "CARMEN LR"},
+      "geometry": {"type": "MultiPolygon", "coordinates": [[[[-77.081, -11.954], [-77.069, -11.954], [-77.069, -11.942], [-77.081, -11.942], [-77.081, -11.954]]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"discapac": 45, "dishom": 20, "dismuj": 25, "UBIGEO": "070104", "DISTRITO": "LA PERLA"},
+      "geometry": {"type": "MultiPolygon", "coordinates": [[[[-77.131, -11.979], [-77.119, -11.979], [-77.119, -11.967], [-77.131, -11.967], [-77.131, -11.979]]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"discapac": 15, "dishom": 7, "dismuj": 8, "UBIGEO": "070105", "DISTRITO": "LA PUNTA"},
+      "geometry": {"type": "MultiPolygon", "coordinates": [[[[-77.106, -11.979], [-77.094, -11.979], [-77.094, -11.967], [-77.106, -11.967], [-77.106, -11.979]]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"discapac": 0, "dishom": 0, "dismuj": 0, "UBIGEO": "070106", "DISTRITO": "VENTANILLA"},
+      "geometry": {"type": "MultiPolygon", "coordinates": [[[[-77.181, -11.954], [-77.169, -11.954], [-77.169, -11.942], [-77.181, -11.942], [-77.181, -11.954]]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"discapac": 160, "dishom": 78, "dismuj": 82, "UBIGEO": "070107", "DISTRITO": "MI PERU"},
+      "geometry": {"type": "MultiPolygon", "coordinates": [[[[-77.156, -11.979], [-77.144, -11.979], [-77.144, -11.967], [-77.156, -11.967], [-77.156, -11.979]]]]}
+    }
+  ]
+}
